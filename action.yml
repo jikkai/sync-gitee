@@ -30,6 +30,15 @@ runs:
   using: composite
 
   steps:
+    - name: 🚀 Setup
+      run: |
+        echo "Syncing GitHub repository ${GITHUB_REPOSITORY} to Gitee repository ${{ inputs.repository }}..."
+        if ${{ inputs.tags }}; then
+          echo "Syncing tags ${{ inputs.tags }}..."
+        fi
+        echo "Syncing branches ${{ inputs.branches }}..."
+      shell: bash
+
     - name: 📤 Checkout
       run: |
         git init
