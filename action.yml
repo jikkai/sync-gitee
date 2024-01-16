@@ -41,7 +41,7 @@ runs:
 
     - name: 📤 Checkout
       run: |
-        git init
+        git init --initial-branch=main
         git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
         git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${{ inputs.token }}" | base64)"
         if ${{ inputs.tags }}; then
