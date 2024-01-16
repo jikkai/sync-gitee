@@ -35,7 +35,9 @@ runs:
         git init
         git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
         git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${{ inputs.token }}" | base64)"
-        git fetch origin 'refs/tags/*:refs/tags/*'
+        if ${{ inputs.tags }}; then
+          git fetch origin 'refs/tags/*:refs/tags/*'
+        fi
         for branch in ${{ inputs.branches }}; do
           if git ls-remote --exit-code --heads https://github.com/${GITHUB_REPOSITORY}.git $branch; then
             git fetch origin $branch
@@ -49,6 +51,6 @@ runs:
         remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
         git show-ref
-        git push --all --force gitee
+        git push --force gitee
         git push --tags --force gitee
       shell: bash
