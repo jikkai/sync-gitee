@@ -1,0 +1,52 @@
+name: sync-gitee
+description: Sync your GitHub repository to Gitee
+
+inputs:
+  repository:
+    description: Gitee repository name, e.g. `owner/repo`.
+    required: true
+
+  username:
+    description: Gitee username, used for login.
+    required: true
+
+  password:
+    description: Gitee password, used for login.
+    required: true
+
+  token:
+    description: GitHub personal access token, used for fetching private GitHub repository.
+    default: ${{ github.token }}
+
+  tags:
+    description: Whether to sync tags.
+    default: true
+
+  branches:
+    description: Which branches to sync.
+    default: main master
+
+runs:
+  using: composite
+
+  steps:
+    - name: 📤 Checkout
+      run: |
+        git init
+        git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
+        git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${{ inputs.token }}" | base64)"
+        git fetch origin 'refs/tags/*:refs/tags/*'
+        for branch in ${{ inputs.branches }}; do
+          if git ls-remote --exit-code --heads https://github.com/${GITHUB_REPOSITORY}.git $branch; then
+            git fetch origin $branch
+            git branch --track $branch origin/$branch
+          fi
+        done
+
+    - name: 📥 Sync
+      run: |
+        remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
+        git remote add gitee "${remote_repo}"
+        git show-ref
+        git push --all --force gitee
+        git push --tags --force gitee

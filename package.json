@@ -1,0 +1,14 @@
+{
+  "name": "sync-gitee",
+  "version": "1.0.0",
+  "description": "Sync your GitHub repository to Gitee",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jikkai/sync-gitee.git"
+  },
+  "author": "白熱 <sonne@asaki.me>",
+  "license": "Apache-2.0"
+}
