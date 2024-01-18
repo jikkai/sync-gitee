@@ -60,6 +60,6 @@ runs:
         remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
         git show-ref
-        git push --force gitee
+        git push --all --force gitee
         git push --tags --force gitee
       shell: bash
