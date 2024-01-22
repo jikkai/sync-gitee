@@ -60,6 +60,12 @@ runs:
         remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
         git remote add gitee "${remote_repo}"
         git show-ref
-        git push --all --force gitee
-        git push --tags --force gitee
+        # If pushing to Gitee fails, try again after 5 seconds. Max 3 attempts.
+        attempts=0
+        until [ $attempts -ge 3 ]
+        do
+          git push --all --force gitee && git push --tags --force gitee && break
+          attempts=$[$attempts+1]
+          sleep 5
+        done
       shell: bash
