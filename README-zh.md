@@ -1,6 +1,6 @@
 # Sync Gitee
 
-This action allows you to sync your GitHub repository to Gitee.
+一个允许将 GitHub 仓库同步到 Gitee 的 GitHub Action。
 
 <div align="center">
 
@@ -8,7 +8,7 @@ This action allows you to sync your GitHub repository to Gitee.
 
 </div>
 
-## Usage
+## 使用方法
 
 ```yaml
 name: 🔮 Sync Mirror
@@ -32,13 +32,13 @@ jobs:
           branches: main
 ```
 
-## Options
+## 选项
 
-- `repository`: The Gitee repository to sync to, in the format `<username>/<repository>`.
-- `username`: Your Gitee username.
-- `password`: Your Gitee password or personal access token.
-- `tags`: Whether to sync tags. Defaults to `true`.
-- `branches`: A space-separated list of branches to sync. Defaults to `main master`.
+- `repository`: 要同步到的 Gitee 仓库，格式为 `<username>/<repository>`。
+- `username`: 你的 Gitee 用户名。
+- `password`: 你的 Gitee 密码或个人访问令牌。
+- `tags`: 是否同步标签。默认为 `true`。
+- `branches`: 要同步的分支列表，以空格分隔。默认为 `main master`。
 
 <!-- Links -->
 [github-license-shield]: https://img.shields.io/github/license/jikkai/sync-gitee?style=flat-square
