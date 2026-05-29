@@ -43,7 +43,7 @@ runs:
       run: |
         git init --initial-branch=main
         git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
-        git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${{ inputs.token }}" | base64)"
+        git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${{ inputs.token }}" | base64 -w 0)"
         if ${{ inputs.tags }}; then
           git fetch origin 'refs/tags/*:refs/tags/*'
         fi
