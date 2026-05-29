@@ -48,7 +48,7 @@ runs:
           git fetch origin 'refs/tags/*:refs/tags/*'
         fi
         for branch in ${{ inputs.branches }}; do
-          if git ls-remote --exit-code --heads https://github.com/${GITHUB_REPOSITORY}.git $branch; then
+          if git ls-remote --exit-code --heads origin $branch; then
             git fetch origin $branch
             git branch --track $branch origin/$branch
           fi
